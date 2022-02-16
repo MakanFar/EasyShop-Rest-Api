@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import viewsets, generics, permissions, status
 from django.shortcuts import get_object_or_404
-from django.db.models import ProtectedError
+from .permissions import IsOwnerOrNoAccess
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 # Create your views here.
