@@ -1,9 +1,5 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework import viewsets, generics, permissions, status
-from django.shortcuts import get_object_or_404
-from .permissions import IsOwnerOrNoAccess
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 # Create your views here.
@@ -52,8 +48,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
-
-
 class InvoiceViewSet(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser, FormParser, JSONParser)
     serializer_class = InvoiceSerializer
@@ -61,7 +55,6 @@ class InvoiceViewSet(viewsets.ModelViewSet):
         customer_items = Customer.objects.filter(shop=self.request.user.employee.shop)
         queryset = Invoice.objects.filter(customer__in=customer_items.values_list('pk'))
         return queryset
-
 
 class InvoiceItemViewSet(viewsets.ModelViewSet):
     

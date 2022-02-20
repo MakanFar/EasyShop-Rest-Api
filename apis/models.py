@@ -114,7 +114,6 @@ class InvoiceItem(models.Model):
 
 
 
-
 class InvoicePaid(models.Model):
     invoice = models.OneToOneField(Invoice, on_delete=models.CASCADE)
     date = models.DateField(default=date.today)

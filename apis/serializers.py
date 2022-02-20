@@ -13,7 +13,6 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
         fields = ('address', 'zip', 'city', 'country', 'email', 'phone',)
 
 
-
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
@@ -25,7 +24,6 @@ class ItemSerializer(serializers.ModelSerializer):
         return item
 
 
-
 class InvoiceItemSerializer(serializers.ModelSerializer):
 
     item = serializers.HyperlinkedRelatedField(read_only=True, view_name="apis:item-detail")
@@ -35,7 +33,6 @@ class InvoiceItemSerializer(serializers.ModelSerializer):
         model = InvoiceItem
         fields = ['price', 'amount', 'item']
 
-    
 
 
 class InvoiceSerializer(serializers.ModelSerializer):
@@ -75,9 +72,6 @@ class InvoiceSerializer(serializers.ModelSerializer):
         return expense
 
     
-        
-    
-
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -155,7 +149,6 @@ class BrandSerializer(serializers.ModelSerializer):
         brand = self.Meta.model.objects.create(shop=self.context['request'].user.employee.shop, **validated_data)
 
         return brand
-
 
 
 class ShopSerializer(serializers.ModelSerializer):
