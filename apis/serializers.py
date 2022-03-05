@@ -1,11 +1,8 @@
-from dataclasses import fields
 from rest_framework import serializers
 from .models import *
-from django.db import transaction
-from django.shortcuts import get_object_or_404
-from rest_framework.response import Response
-from rest_framework import  status
-from drf_writable_nested.serializers import WritableNestedModelSerializer
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+
 
 class CustomerDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -204,7 +201,16 @@ class EmployeeSerializer(serializers.ModelSerializer):
         model = Employee
         fields = ['user', 'shop']
 
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
 
+        # Add custom claims
+        token['username'] = user.username
+        # ...
+
+        return token
 
 
 

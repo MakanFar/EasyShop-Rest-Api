@@ -1,11 +1,18 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.permissions import IsAuthenticated
+
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Create your views here.
 from .models import *
 from .serializers import *
 from django.contrib.auth.models import User
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
 
 class CustomerViewSet(viewsets.ModelViewSet):
     serializer_class = CustomerSerializer
@@ -36,6 +43,7 @@ class BrandViewSet(viewsets.ModelViewSet):
         return queryset
    
 class ShopViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
